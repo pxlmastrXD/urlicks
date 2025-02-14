@@ -6,12 +6,13 @@ import Database from './db.mjs'
 const app = express();
 let db = new Database("./db");
 
-// Middleware
-app.use(express.json)
-app.use(express.static("static"));
+//middleware
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }));  // ✅ Enables URL-encoded body parsing
 
 // New link request
 app.post('/newLink', async (req, res) => {
+    console.log("Recieved new link request")
     let link = req.body.link;
     let id = Number(db.get("id")) + 1;
     db.set(link, id);
@@ -23,11 +24,14 @@ app.post('/newLink', async (req, res) => {
 
 // Get link request
 app.get('/link/:id', async (req, res) => {
+    console.log("Got link request")
     let id = req.params.id;
     let link = db.get(id);
     res.redirect(link)
 })
 
-app.listen(8080, () => {
-    console.log("App is listening on port 8080.")
+
+
+app.listen(3000, () => {
+    console.log("App is listening!")
 })

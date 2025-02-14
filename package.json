@@ -2,7 +2,7 @@
     "name": "urlicks",
     "version": "0.1",
     "description": "A pretty cool url shortener",
-    "main": "src/index.js",
+    "main": "src/index.mjs",
     "keywords": [],
     "author": "Caleb Wietholter",
     "license": "MIT",
