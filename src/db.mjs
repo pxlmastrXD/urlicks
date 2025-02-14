@@ -16,3 +16,4 @@ class Database {
         return result
     }
 }
+export default Database;
