@@ -4,15 +4,15 @@ class Database {
     constructor(path) {
         this.path = path;
     }
-    async set(key, value) {
+    set(key, value) {
         let path = "${this.path}/${key}";
         let cmd = "mkdir -p ${path} && touch ${path}/value && echo ${value} > value";
-        await runbash(cmd);
+        runbash(cmd);
     }
-    async get(key) {
+    get(key) {
         let path = "${this.path}/${key}/value";
         let cmd = "cat ${path}";
-        let result = await runbash(cmd);
+        let result = runbash(cmd);
         return result
     }
 }

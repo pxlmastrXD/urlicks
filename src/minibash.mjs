@@ -1,18 +1,13 @@
-import { exec } from 'child_process';
-import { promisify } from 'util';
+import { execSync } from 'child_process';
 
-// Convert exec to return a Promise
-const execPromise = promisify(exec);
-
-export async function runbash(command) {
+export function runbashSync(command) {
   try {
-    // Execute the command and return the stdout output
-    const { stdout, stderr } = await execPromise(command);
-    if (stderr) {
-      throw new Error(`Error: ${stderr}`);
-    }
-    return stdout;
+    // Execute the command synchronously and return the output
+    return execSync(command, { encoding: 'utf-8', stdio: 'pipe' });
   } catch (error) {
     throw new Error(`Failed to execute command: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
 }
+
+// Example usage
+console.log(runbashSync('ls -l'));
