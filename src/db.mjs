@@ -5,13 +5,13 @@ class Database {
         this.path = path;
     }
     set(key, value) {
-        let path = "${this.path}/${key}";
-        let cmd = "mkdir -p ${path} && touch ${path}/value && echo ${value} > value";
+        let path = `${this.path}/${key}`;
+        let cmd = `mkdir -p ${path} && touch ${path}/value && echo ${value} > ${path}/value`;
         runbash(cmd);
     }
     get(key) {
-        let path = "${this.path}/${key}/value";
-        let cmd = "cat ${path}";
+        let path = `${this.path}/${key}/value`;
+        let cmd = `cat ${path}`;
         let result = runbash(cmd);
         return result
     }

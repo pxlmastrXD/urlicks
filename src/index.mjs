@@ -12,10 +12,9 @@ app.use(express.urlencoded({ extended: true }));
 
 // New link request
 app.post('/newLink', (req, res) => {
-    console.log("Recieved new link request")
     let link = req.body.link;
     let id = Number(db.get("id")) + 1;
-    db.set(link, id);
+    db.set(id, link);
     db.set("id", id);
     res.json({
         "id": id
@@ -24,11 +23,16 @@ app.post('/newLink', (req, res) => {
 
 // Get link request
 app.get('/link/:id', (req, res) => {
-    console.log("Got link request")
     let id = req.params.id;
-    let link = db.get(id);
-    res.redirect(link)
+    let link = db.get(id).trim();
+    if (!link.startsWith('http://') && !link.startsWith('https://')) {
+        link = 'http://' + link; // Or 'https://' depending on the expected scheme
+    }
+    console.log(link)
+    res.redirect(302, link)
 })
+
+app.use("/", express.static("static"))
 
 app.listen(3000, () => {
     console.log("App is listening!")
