@@ -32,8 +32,10 @@ app.get('/link/:id', (req, res) => {
     res.redirect(302, link)
 })
 
+// Static feed-through
 app.use("/", express.static("static"))
 
+// Listener
 app.listen(3000, () => {
     console.log("App is listening!")
 })
